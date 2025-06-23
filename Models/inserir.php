@@ -12,7 +12,28 @@ try {
         $numero_serie = trim($_POST['numero_serie']);
 
         if ($numero_serie !== '') {
-            $sql = "INSERT INTO SUA_TABELA (ColunaNumeroSerie) VALUES (:numero_serie)";
+            //$sql = "INSERT INTO SUA_TABELA (ColunaNumeroSerie) VALUES (:numero_serie)";
+            $sql = "INSERT INTO HOMOLOG_CONTAINER
+                                    (
+                                        NCONTAINER,
+                                        DTCAD,
+                                        NUMSERIE,
+                                        MODELO1,
+                                        MODELO2,
+                                        TIPOALT,
+                                        GRAVACÃO,
+                                        TIPO,
+                                        VEND_COMP
+                                    )VALUES(
+                                        ':container',
+                                        GETDATE(),
+                                        :numero_serie,
+                                        NULL,
+                                        NULL,
+                                        NULL,
+                                        NULL,
+                                        NULL,
+                                        NULL)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':numero_serie', $numero_serie);
 
