@@ -11,7 +11,14 @@ ini_set('display_errors', '0'); // Garante que erros não sejam exibidos no nave
 
 /* print_r(validaUsuario($conn)); */
 
-$nContainer = isset($_POST['nContainer']) ? htmlspecialchars($_POST['nContainer']) : '';
+/* mantem a variavel nContainer enquanto não houver post */
+session_start();
+if (isset($_POST['nContainer'])) {
+    $_SESSION['nContainer'] = htmlspecialchars($_POST['nContainer']);
+}
+
+$nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
+
 
 ?>
 
@@ -33,11 +40,14 @@ $nContainer = isset($_POST['nContainer']) ? htmlspecialchars($_POST['nContainer'
     <header class="text-center">
         <h4>Container: <?= $nContainer ?></h4>
         <div class="input-header">
-            <input type="text" class="form-control mx-auto" style="max-width: 500px;" placeholder="Numero de Série"
-                id="inputBusca">
+            <form method="post" id="FormInputBip">
+                <input type="text" class="form-control mx-auto" style="max-width: 500px;" placeholder="Numero de Série"
+                    id="numero_serie">
+            </form>
         </div>
     </header>
-
+    <!-- envia o codigo do container para a requisição -->
+    <input type="hidden" id="containerIndex" value="<?= $nContainer ?>">
     <main>
         <div class="container-tabela">
             <table class="table table-hover table-borderless table-sm">
@@ -45,16 +55,16 @@ $nContainer = isset($_POST['nContainer']) ? htmlspecialchars($_POST['nContainer'
                     <tr>
                         <th>Container</th>
                         <th>Compra</th>
-
+                        <th>Modelo</th>
                     </tr>
                 </thead>
                 <tbody id="tabelaDados">
                     <!-- Dados preenchidos pelo PHP -->
                     <script>
-                        document.getElementById('inputBusca').addEventListener('input', function () {
-                            const busca = this.value;
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const busca = document.getElementById('containerIndex').value;
 
-                            fetch('consulta.php?busca=' + encodeURIComponent(busca))
+                            fetch('../Models/dados.php?busca=' + encodeURIComponent(busca))
                                 .then(response => response.json())
                                 .then(dados => {
                                     const tabela = document.getElementById('tabelaDados');
@@ -67,9 +77,10 @@ $nContainer = isset($_POST['nContainer']) ? htmlspecialchars($_POST['nContainer'
 
                                     dados.forEach(item => {
                                         const linha = `<tr>
-                                                            <td>${item.ID}</td>
-                                                            <td>${item.NOME}</td>
-                                                            <td>${item.DETALHE}</td>
+                                                            <td>${item.Serie}</td>
+                                                            <td>${item.Container}</td>
+                                                            <td>${item.Modelo}</td>
+                                                            <td><button>Teste</button></td>
                                                         </tr>`;
                                         tabela.innerHTML += linha;
                                     });
@@ -77,8 +88,11 @@ $nContainer = isset($_POST['nContainer']) ? htmlspecialchars($_POST['nContainer'
                                 .catch(error => {
                                     console.error('Erro na busca:', error);
                                 });
+
+                            console.log('Busca realizada com sucesso:', busca);
                         });
                     </script>
+
 
                 </tbody>
             </table>
@@ -90,6 +104,8 @@ $nContainer = isset($_POST['nContainer']) ? htmlspecialchars($_POST['nContainer'
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../Public/JS/bip.js" charset="utf-8"></script>
     <script src="../Public/JS/script.js" charset="utf-8"></script>
 </body>
 

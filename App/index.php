@@ -85,6 +85,7 @@ ini_set('display_errors', '0'); // Garante que erros não sejam exibidos no nave
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../Public/JS/index.js" charset="utf-8"></script>
     <script src="../Public/JS/script.js" charset="utf-8"></script>
 </body>
 
