@@ -31,9 +31,9 @@ ini_set('display_errors', '0'); // Garante que erros não sejam exibidos no nave
     <header class="text-center">
         <h4>Insira o codigo do container</h4>
         <div class="input-header">
-            <form action="bip.php" method="post" id="FormInput"></form>
-            <input type="text" class="form-control mx-auto" style="max-width: 500px;" placeholder="Digite sua busca..."
-                id="inputBusca">
+            <form action="bip.php" method="post" id="FormInput">
+                <input type="text" class="form-control mx-auto" style="max-width: 500px;"
+                    placeholder="Digite sua busca..." id="inputBusca" name="nContainer">
             </form>
         </div>
     </header>

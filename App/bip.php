@@ -11,6 +11,8 @@ ini_set('display_errors', '0'); // Garante que erros não sejam exibidos no nave
 
 /* print_r(validaUsuario($conn)); */
 
+$nContainer = isset($_POST['nContainer']) ? htmlspecialchars($_POST['nContainer']) : '';
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +21,7 @@ ini_set('display_errors', '0'); // Garante que erros não sejam exibidos no nave
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela Responsiva</title>
+    <title>DATABIT</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,9 +31,9 @@ ini_set('display_errors', '0'); // Garante que erros não sejam exibidos no nave
 <body class="d-flex flex-column">
 
     <header class="text-center">
-        <h4>Consulta de Dados</h4>
+        <h4>Container: <?= $nContainer ?></h4>
         <div class="input-header">
-            <input type="text" class="form-control mx-auto" style="max-width: 500px;" placeholder="Digite sua busca..."
+            <input type="text" class="form-control mx-auto" style="max-width: 500px;" placeholder="Numero de Série"
                 id="inputBusca">
         </div>
     </header>
@@ -82,12 +84,13 @@ ini_set('display_errors', '0'); // Garante que erros não sejam exibidos no nave
             </table>
         </div>
 
-        <button class="btn btn-primary btn-acao mt-2">Ação</button>
+        <button onclick="volta('index.php')" class="btn btn-primary btn-acao mt-2">Voltar</button>
+        <button class="btn btn-primary btn-acao mt-2">Fim</button>
     </main>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../Public/JS/script.js"></script>
+    <script src="../Public/JS/script.js" charset="utf-8"></script>
 </body>
 
 </html>

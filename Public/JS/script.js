@@ -4,3 +4,7 @@ document.getElementById('inputBusca').addEventListener('keypress', function (e) 
         document.getElementById('FormInput').submit();
     }
 });
+
+function volta(pag) {
+    window.location.href = pag;
+}
