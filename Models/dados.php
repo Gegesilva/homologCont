@@ -8,16 +8,26 @@ try {
     $conn = new PDO("sqlsrv:server=$server;Database=$base", $usuarioBanco, $SenhaBanco);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+
+
     $sql = "SELECT
                 TB02055_NUMSERIE AS Serie,
                 TB02002_NCONTEINER AS Container,
-                TB01010_REFERENCIA AS Modelo
+                TB01010_REFERENCIA AS Modelo,
+				ISNULL(BipExist.Exist ,0) BipExist,
+				ISNULL(BipNotExist.NotExist,0) BipNotExist
             FROM TB02002
             LEFT JOIN TB02003 ON TB02003_CODIGO = TB02002_CODIGO
             LEFT JOIN TB02055 ON TB02055_CODIGO = TB02002_CODIGO 
                 AND TB02055_PRODUTO = TB02003_PRODUTO 
                 AND TB02055_TABELA = 'TB02002'
             LEFT JOIN TB01010 ON TB01010_CODIGO = TB02003_PRODUTO
+			OUTER APPLY(
+				SELECT 1 Exist FROM HOMOLOG_CONTAINER WHERE NUMSERIE = TB02055_NUMSERIE
+			) AS BipExist
+			OUTER APPLY(
+				SELECT 1 NotExist FROM HOMOLOG_CONTAINER WHERE NUMSERIE <> TB02055_NUMSERIE
+			) AS BipNotExist
             WHERE TB02002_NCONTEINER = :busca";
 
     $stmt = $conn->prepare($sql);
