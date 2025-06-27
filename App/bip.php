@@ -43,10 +43,11 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
             <form method="post" id="FormInputBip">
                 <input type="text" class="form-control mx-auto" style="max-width: 500px;" placeholder="Numero de Série"
                     id="numero_serie">
+                <input type="hidden" id="nContainer" name="nContainer" value="<?=$nContainer?>">
             </form>
         </div>
 
-        <div id="statusMsg" class="text-center mt-2"></div>
+        <div id="statusMsg" name="statusMsg" class="text-center mt-2"></div>
     </header>
     <!-- envia o codigo do container para a requisição -->
     <input type="hidden" id="containerIndex" value="<?= $nContainer ?>">

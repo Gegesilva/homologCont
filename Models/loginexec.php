@@ -38,7 +38,7 @@ print_r( $senha); */
 // Verifica se o usuário e senha estão corretos
 if ($usuario != NULL) {
 
-    echo "<script>location.href='../Container/index.php'</script>";
+    echo "<script>location.href='../app/index.php'</script>";
 } else {
 
 
