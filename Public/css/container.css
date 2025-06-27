@@ -48,3 +48,8 @@ main {
         align-self: flex-end;
     }
 }
+
+.statusMsg{
+    color: #fff;
+    font-size: large;
+}

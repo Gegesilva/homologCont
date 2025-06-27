@@ -1,4 +1,3 @@
-
 <?php
 header('Content-Type: text/plain; charset=UTF-8');
 include_once "../Config/config.php";
@@ -10,7 +9,18 @@ try {
 
     if (isset($_POST['numero_serie']) && isset($_POST['nContainer'])) {
         $numero_serie = trim($_POST['numero_serie']);
-        $nc = trim($_POST['nContainer']);
+        $nContainer = trim($_POST['nContainer']);
+
+        // Verifica se o número de série já existe na tabela HOMOLOG_CONTAINER
+        $sql0 = "SELECT COUNT(*) AS total FROM HOMOLOG_CONTAINER WHERE NUMSERIE = :numero_serie";
+        $stmt0 = $conn->prepare($sql0);
+        $stmt0->execute([':numero_serie' => $numero_serie]);
+        $JaBipado = $stmt0->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($JaBipado[0]['total'] > 0) {
+            echo "Número de série já cadastrado.";
+            exit;
+        }
 
         if ($numero_serie !== '') {
             //$sql = "INSERT INTO SUA_TABELA (ColunaNumeroSerie) VALUES (:numero_serie)";
@@ -25,16 +35,18 @@ try {
                                         GRAVACÃO,
                                         TIPO,
                                         VEND_COMP
-                                    )VALUES(
+                                    )SELECT TOP 1
                                         :nContainer,
                                         GETDATE(),
-                                        :numero_serie,
+                                        TB02054_NUMSERIE,
+                                        TB02054_PRODUTO,
                                         NULL,
                                         NULL,
                                         NULL,
                                         NULL,
-                                        NULL,
-                                        NULL)";
+                                        NULL
+                                        FROM TB02054
+                                        WHERE TB02054_NUMSERIE = :numero_serie";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':numero_serie', $numero_serie);
             $stmt->bindParam(':nContainer', $nContainer);
