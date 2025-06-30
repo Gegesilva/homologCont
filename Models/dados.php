@@ -65,11 +65,12 @@ try {
                         h.NUMSERIE AS Serie,
                         NCONTAINER AS Container,
                         NULL AS Modelo,
-                        MODELO2 AS Modelo2,
-                        NULL AS Referencia,
+						MODELO2 AS Modelo2,
+                        TB01010_REFERENCIA AS Referencia,
                         0 AS BipExist,
                         1 AS BipNotExist
                     FROM HOMOLOG h
+					LEFT JOIN TB01010 ON TB01010_CODIGO = MODELO2
                     WHERE NOT EXISTS (
                         SELECT 1 FROM TB02055 t WHERE t.TB02055_NUMSERIE = h.NUMSERIE
                     )
@@ -80,7 +81,7 @@ try {
                     c.Serie,
                     c.Container,
                     c.Modelo,
-                    null Modelo2,
+					null Modelo2,
                     c.Referencia,
                     ISNULL(be.BipExist, 0) AS BipExist,
                     ISNULL(bne.BipNotExist, 0) AS BipNotExist
@@ -93,8 +94,8 @@ try {
                 SELECT
                     e.Serie,
                     e.Container,
-                    e.Modelo,
-                    e.Modelo2,
+                    ISNULL(e.Modelo, e.Modelo2),
+					e.Modelo2,
                     e.Referencia,
                     e.BipExist,
                     e.BipNotExist
