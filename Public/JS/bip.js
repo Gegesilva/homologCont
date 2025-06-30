@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const formModelo = document.getElementById('modalForm');
     const inputModelo = document.getElementById('modelo');
     const serieInput = document.getElementById('serieInput');
+    const containerInput = document.getElementById('containerInput');
+    //const referenciaInput = document.getElementById('referenciaInput');
     const statusMsgMod = document.getElementById('statusMsgMod'); // crie essa div no HTML para mostrar status do modelo
 
     inputBusca.addEventListener('keypress', function (e) {
@@ -50,37 +52,57 @@ document.addEventListener('DOMContentLoaded', function () {
     /* insere modelos */
     formModelo.addEventListener('submit', function (e) {
         e.preventDefault();
-    
+
         const modelo = inputModelo.value.trim();
         if (modelo === '') {
             statusMsgMod.innerHTML = '<span style="color: red;">Informe um número de modelo.</span>';
             return;
         }
-    
+
+        const serie = serieInput.value.trim();
+        if (serie === '') {
+            statusMsgMod.innerHTML = '<span style="color: red;">Série não informada.</span>';
+            return;
+        }
+
+        const container = containerInput.value.trim();
+        if (container === '') {
+            statusMsgMod.innerHTML = '<span style="color: red;">cont não informada.'+container+'</span>';
+            return;
+        }
+
+        /* const referencia = referenciaInput.value.trim();
+        if (referencia === '') {
+            statusMsgMod.innerHTML = '<span style="color: red;">referencia não informada.</span>';
+            return;
+        } */
+
         const formData = new FormData();
         formData.append('modelo', modelo);
-        formData.append('serieInput', serieInput);
-    
+        formData.append('serie', serie);
+        formData.append('container', container);
+        formData.append('referencia', referencia);
+
         fetch('../Models/modelo.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(text => {
+                console.log(text); // Log para depuração
                 statusMsgMod.innerHTML = `<span style="color: green;">${text}</span>`;
                 inputModelo.value = '';
-    
-                // Aqui você pode atualizar a tabela, por exemplo:
+
                 atualizarTabelaModelo();
-    
-                // Também pode fechar o modal se quiser
+
                 document.getElementById('modal').style.display = 'none';
             })
             .catch(() => {
                 statusMsgMod.innerHTML = '<span style="color: red;">Erro ao salvar.</span>';
             });
     });
-    
+
+
 });
 
 
@@ -92,6 +114,8 @@ document.addEventListener('click', function (event) {
         const serie = event.target.getAttribute('data-serie');
         document.getElementById('serieInput').value = serie;
         document.getElementById('modal').style.display = 'flex';
+
+        document.getElementById('modelo').focus(); // Foca no campo de modelo do modal
     }
 });
 

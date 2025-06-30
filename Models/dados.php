@@ -12,7 +12,7 @@ try {
 
     $sql = "-- lista dos numeros de serie bipados
                 WITH HOMOLOG AS (
-                    SELECT DISTINCT NUMSERIE, MODELO1 FROM HOMOLOG_CONTAINER
+                    SELECT DISTINCT NUMSERIE, MODELO1, MODELO2 FROM HOMOLOG_CONTAINER
                 ),
 
                 -- numeros de serie da compra
@@ -65,6 +65,7 @@ try {
                         h.NUMSERIE AS Serie,
                         NULL AS Container,
                         NULL AS Modelo,
+                        MODELO2 AS Modelo2,
                         NULL AS Referencia,
                         0 AS BipExist,
                         1 AS BipNotExist
@@ -79,6 +80,7 @@ try {
                     c.Serie,
                     c.Container,
                     c.Modelo,
+                    null Modelo2,
                     c.Referencia,
                     ISNULL(be.BipExist, 0) AS BipExist,
                     ISNULL(bne.BipNotExist, 0) AS BipNotExist
@@ -92,6 +94,7 @@ try {
                     e.Serie,
                     e.Container,
                     e.Modelo,
+                    e.Modelo2,
                     e.Referencia,
                     e.BipExist,
                     e.BipNotExist
