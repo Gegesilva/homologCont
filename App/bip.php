@@ -87,7 +87,7 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
                                             botaoModelo = ``;
                                         } else if (item.BipNotExist == '1') {
                                             cor = `#FA8072`;
-                                            botaoModelo = `<button class="abrirModal">Inserir Modelo</button>`;
+                                            botaoModelo = `<button class="abrirModal" data-serie="${item.Serie}">Inserir Modelo</button>`;
                                         } else {
                                             cor = ``;
                                             botaoModelo = ``;
@@ -130,8 +130,10 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
                         background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
         <div style="background-color: white; padding: 20px; border-radius: 5px;">
             <form id="modalForm">
+                <input type="hidden" name="serie" id="serieInput" value="">
                 <label>Digite algo:</label>
-                <input type="text" name="campo" required>
+                <input type="text" name="campo" id="modelo" required>
+                <script></script>
                 <button type="submit">Enviar</button>
                 <button type="button" id="fecharModal">Cancelar</button>
             </form>
