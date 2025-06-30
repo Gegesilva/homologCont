@@ -74,6 +74,7 @@ try {
                     WHERE NOT EXISTS (
                         SELECT 1 FROM TB02055 t WHERE t.TB02055_NUMSERIE = h.NUMSERIE
                     )
+                    AND NCONTAINER = :busca2
                 )
 
                 -- resultado final
@@ -106,7 +107,7 @@ try {
                 ";
 
     $stmt = $conn->prepare($sql);
-    $stmt->execute([':busca' => $busca]);
+    $stmt->execute([':busca' => $busca, ':busca2' => $busca]);
 
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
