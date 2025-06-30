@@ -25,30 +25,31 @@ try {
         if ($numero_serie !== '') {
             //$sql = "INSERT INTO SUA_TABELA (ColunaNumeroSerie) VALUES (:numero_serie)";
             $sql = "INSERT INTO HOMOLOG_CONTAINER
-                                    (
-                                        NCONTAINER,
-                                        DTCAD,
-                                        NUMSERIE,
-                                        MODELO1,
-                                        MODELO2,
-                                        TIPOALT,
-                                        GRAVACÃO,
-                                        TIPO,
-                                        VEND_COMP
-                                    )SELECT TOP 1
-                                        :nContainer,
-                                        GETDATE(),
-                                        TB02054_NUMSERIE,
-                                        TB02054_PRODUTO,
-                                        NULL,
-                                        NULL,
-                                        NULL,
-                                        NULL,
-                                        NULL
-                                        FROM TB02054
-                                        WHERE TB02054_NUMSERIE = :numero_serie";
+                                (
+                                    NCONTAINER,
+                                    DTCAD,
+                                    NUMSERIE,
+                                    MODELO1,
+                                    MODELO2,
+                                    TIPOALT,
+                                    GRAVACÃO,
+                                    TIPO,
+                                    VEND_COMP
+                                )VALUES(
+                                    :nContainer,
+                                    GETDATE(),
+                                    ISNULL((SELECT TB02054_NUMSERIE FROM TB02054 WHERE TB02054_NUMSERIE = :numero_serie2), :numero_serie3),
+                                    (SELECT TB02054_PRODUTO FROM TB02054 WHERE TB02054_NUMSERIE = :numero_serie),
+                                    NULL,
+                                    NULL,
+                                    NULL,
+                                    NULL,
+                                    NULL
+                                    )";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':numero_serie', $numero_serie);
+            $stmt->bindParam(':numero_serie2', $numero_serie);
+            $stmt->bindParam(':numero_serie3', $numero_serie);
             $stmt->bindParam(':nContainer', $nContainer);
 
             if ($stmt->execute()) {

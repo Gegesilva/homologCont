@@ -43,11 +43,11 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
             <form method="post" id="FormInputBip">
                 <input type="text" class="form-control mx-auto" style="max-width: 500px;" placeholder="Numero de Série"
                     id="numero_serie">
-                <input type="hidden" id="nContainer" name="nContainer" value="<?=$nContainer?>">
+                <input type="hidden" id="nContainer" name="nContainer" value="<?= $nContainer ?>">
             </form>
         </div>
 
-        <div id="statusMsg" name="statusMsg"  class="text-center mt-2 statusMsg"></div>
+        <div id="statusMsg" name="statusMsg" class="text-center mt-2 statusMsg"></div>
     </header>
     <!-- envia o codigo do container para a requisição -->
     <input type="hidden" id="containerIndex" value="<?= $nContainer ?>">
@@ -56,8 +56,8 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
             <table class="table table-hover table-borderless table-sm">
                 <thead>
                     <tr>
-                        <th>Container</th>
-                        <th>Compra</th>
+                        <th>Serie</th>
+                        <th>Referencia</th>
                         <th>Modelo</th>
                     </tr>
                 </thead>
@@ -79,12 +79,26 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
                                     }
 
                                     dados.forEach(item => {
-                                        const linha = `<tr>
-                                                            <td>${item.Serie}</td>
-                                                            <td>${item.Container}</td>
-                                                            <td>${item.Modelo}</td>
-                                                            <td><button>Teste</button></td>
-                                                        </tr>`;
+                                        let cor = '';
+                                        if (item.BipExist == '1') {
+                                            cor = `#98FB98`;
+                                        } else if (item.BipNotExist == '1') {
+                                            cor = `#FA8072`;
+                                        } else {
+                                            cor = ``;
+                                        }
+                                        const linha = `
+                                                    <tr>
+                                                        <td style="background-color: ${cor};">${item.Serie}</td>
+                                                        <td style="background-color: ${cor};">${item.Referencia}</td>
+                                                        <td style="background-color: ${cor};">${item.Modelo}</td>
+                                                        <td>
+                                                            <button class="abrirModal">Teste</button>
+                                                        </td>
+                                                    </tr>
+                                                    `;
+                                        tabela.innerHTML += linha;
+
                                         tabela.innerHTML += linha;
                                     });
                                 })
@@ -105,11 +119,27 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
         <button class="btn btn-primary btn-acao mt-2">Fim</button>
     </main>
 
-    <!-- Bootstrap JS -->
+    
+
+    <!-- modal escondido para alterar modelo -->
+    <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                        background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+        <div style="background-color: white; padding: 20px; border-radius: 5px;">
+            <form id="modalForm">
+                <label>Digite algo:</label>
+                <input type="text" name="campo" required>
+                <button type="submit">Enviar</button>
+                <button type="button" id="fecharModal">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap / JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../Public/JS/bip.js" charset="utf-8"></script>
     <script src="../Public/JS/script.js" charset="utf-8"></script>
+
 </body>
 
 </html>

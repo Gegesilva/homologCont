@@ -38,3 +38,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+/* Aciona modal */
+
+ // Abrir modal com delegação
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('abrirModal')) {
+      document.getElementById('modal').style.display = 'flex';
+    }
+  });
+  
+  // Fechar modal
+  document.getElementById('fecharModal').addEventListener('click', function () {
+    document.getElementById('modal').style.display = 'none';
+  });
+  
+  // Submeter form do modal
+  document.getElementById('modalForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // evita reload
+    // Aqui você processa o form
+    console.log('Form enviado!');
+    document.getElementById('modal').style.display = 'none';
+  });
+  
