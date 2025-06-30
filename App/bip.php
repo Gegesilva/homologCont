@@ -48,6 +48,7 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
         </div>
 
         <div id="statusMsg" name="statusMsg" class="text-center mt-2 statusMsg"></div>
+        <div id="statusMsgMod" name="statusMsgMod" class="text-center mt-2 statusMsg"></div>
     </header>
     <!-- envia o codigo do container para a requisição -->
     <input type="hidden" id="containerIndex" value="<?= $nContainer ?>">

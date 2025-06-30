@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /* campos para inserir modelo */
     const formModelo = document.getElementById('modalForm');
     const inputModelo = document.getElementById('modelo');
+    const serieInput = document.getElementById('serieInput');
     const statusMsgMod = document.getElementById('statusMsgMod'); // crie essa div no HTML para mostrar status do modelo
 
     inputBusca.addEventListener('keypress', function (e) {
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* insere serie */
     form.addEventListener('submit', function (e) {
-       // e.preventDefault();
+        e.preventDefault();
 
         const numeroSerie = inputBusca.value.trim();
         if (numeroSerie === '') {
@@ -52,12 +53,13 @@ document.addEventListener('DOMContentLoaded', function () {
     
         const modelo = inputModelo.value.trim();
         if (modelo === '') {
-            statusMsg.innerHTML = '<span style="color: red;">Informe um número de modelo.</span>';
+            statusMsgMod.innerHTML = '<span style="color: red;">Informe um número de modelo.</span>';
             return;
         }
     
         const formData = new FormData();
         formData.append('modelo', modelo);
+        formData.append('serieInput', serieInput);
     
         fetch('../Models/modelo.php', {
                 method: 'POST',
@@ -65,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(response => response.text())
             .then(text => {
-                statusMsg.innerHTML = `<span style="color: green;">${text}</span>`;
+                statusMsgMod.innerHTML = `<span style="color: green;">${text}</span>`;
                 inputModelo.value = '';
     
                 // Aqui você pode atualizar a tabela, por exemplo:
@@ -75,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('modal').style.display = 'none';
             })
             .catch(() => {
-                statusMsg.innerHTML = '<span style="color: red;">Erro ao salvar.</span>';
+                statusMsgMod.innerHTML = '<span style="color: red;">Erro ao salvar.</span>';
             });
     });
     
