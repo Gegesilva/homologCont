@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    form.addEventListener('submit', function(e) {
+    /* insere serie */
+    form.addEventListener('submit', function (e) {
         e.preventDefault();
 
         const numeroSerie = inputBusca.value.trim();
@@ -25,40 +26,39 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('nContainer', inputBusca2.value.trim());
 
         fetch('../Models/inserir.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(text => {
-            statusMsg.innerHTML = `<span style="color: green;">${text}</span>`;
-            inputBusca.value = '';
-        })
-        .catch(() => {
-            statusMsg.innerHTML = '<span style="color: red;">Erro ao salvar.</span>';
-        });
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(text => {
+                statusMsg.innerHTML = `<span style="color: green;">${text}</span>`;
+                inputBusca.value = '';
+            })
+            .catch(() => {
+                statusMsg.innerHTML = '<span style="color: red;">Erro ao salvar.</span>';
+            });
     });
 });
 
 
 /* Aciona modal */
 
- // Abrir modal com delegação
+// Abrir modal com delegação
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('abrirModal')) {
-      document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal').style.display = 'flex';
     }
-  });
-  
-  // Fechar modal
-  document.getElementById('fecharModal').addEventListener('click', function () {
+});
+
+// Fechar modal
+document.getElementById('fecharModal').addEventListener('click', function () {
     document.getElementById('modal').style.display = 'none';
-  });
-  
-  // Submeter form do modal
-  document.getElementById('modalForm').addEventListener('submit', function (e) {
+});
+
+// Submeter form do modal
+document.getElementById('modalForm').addEventListener('submit', function (e) {
     e.preventDefault(); // evita reload
     // Aqui você processa o form
     console.log('Form enviado!');
     document.getElementById('modal').style.display = 'none';
-  });
-  
+});

@@ -79,26 +79,30 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
                                     }
 
                                     dados.forEach(item => {
+                                        /* Define as cores das linhas de acordo com a existencia e hobilita ou desabilita o botão modelo */
                                         let cor = '';
+                                        let botaoModelo = '';
                                         if (item.BipExist == '1') {
                                             cor = `#98FB98`;
+                                            botaoModelo = ``;
                                         } else if (item.BipNotExist == '1') {
                                             cor = `#FA8072`;
+                                            botaoModelo = `<button class="abrirModal">Inserir Modelo</button>`;
                                         } else {
                                             cor = ``;
+                                            botaoModelo = ``;
                                         }
+
                                         const linha = `
                                                     <tr>
                                                         <td style="background-color: ${cor};">${item.Serie}</td>
                                                         <td style="background-color: ${cor};">${item.Referencia}</td>
                                                         <td style="background-color: ${cor};">${item.Modelo}</td>
                                                         <td>
-                                                            <button class="abrirModal">Teste</button>
+                                                            ${botaoModelo}
                                                         </td>
                                                     </tr>
                                                     `;
-                                        tabela.innerHTML += linha;
-
                                         tabela.innerHTML += linha;
                                     });
                                 })
