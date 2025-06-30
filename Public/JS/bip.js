@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* insere serie */
     form.addEventListener('submit', function (e) {
-        e.preventDefault();
+       // e.preventDefault();
 
         const numeroSerie = inputBusca.value.trim();
         if (numeroSerie === '') {

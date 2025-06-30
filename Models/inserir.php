@@ -38,8 +38,8 @@ try {
                                 )VALUES(
                                     :nContainer,
                                     GETDATE(),
-                                    ISNULL((SELECT TB02054_NUMSERIE FROM TB02054 WHERE TB02054_NUMSERIE = :numero_serie2), :numero_serie3),
-                                    (SELECT TB02054_PRODUTO FROM TB02054 WHERE TB02054_NUMSERIE = :numero_serie),
+                                    ISNULL((SELECT TOP 1 TB02054_NUMSERIE FROM TB02054 WHERE TB02054_NUMSERIE = :numero_serie2), :numero_serie3),
+                                    (SELECT TOP 1 TB02054_PRODUTO FROM TB02054 WHERE TB02054_NUMSERIE = :numero_serie),
                                     NULL,
                                     NULL,
                                     NULL,
