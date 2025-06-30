@@ -88,7 +88,7 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
                                             botaoModelo = ``;
                                         } else if (item.BipNotExist == '1') {
                                             cor = `#FA8072`;
-                                            botaoModelo = `<button class="abrirModal" data-serie="${item.Serie}">Inserir Modelo</button>`;
+                                            botaoModelo = `<button class="abrirModal" data-serie="${item.Serie}" data-container="<?= htmlspecialchars($nContainer) ?>">Inserir Modelo</button>`;
                                         } else if (item.modelo2 != null) {
                                             cor = `#F0E68C`;
                                             botaoModelo = ``;

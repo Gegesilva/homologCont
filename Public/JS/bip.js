@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('modelo', modelo);
         formData.append('serie', serie);
         formData.append('container', container);
-        formData.append('referencia', referencia);
+        //formData.append('referencia', referencia);
 
         fetch('../Models/modelo.php', {
                 method: 'POST',
@@ -112,10 +112,17 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('abrirModal')) {
         const serie = event.target.getAttribute('data-serie');
+        const container = event.target.getAttribute('data-container');
+
         document.getElementById('serieInput').value = serie;
+        document.getElementById('containerInput').value = container;
         document.getElementById('modal').style.display = 'flex';
+        
 
         document.getElementById('modelo').focus(); // Foca no campo de modelo do modal
+
+        console.log('Abrindo modal com:', { serie, container });
+
     }
 });
 
