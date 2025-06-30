@@ -86,10 +86,10 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
                                         if (item.BipExist == '1') {
                                             cor = `#98FB98`;
                                             botaoModelo = ``;
-                                        } else if (item.BipNotExist == '1') {
+                                        } else if (item.BipNotExist == '1' && item.Modelo2 == null) {
                                             cor = `#FA8072`;
                                             botaoModelo = `<button class="abrirModal" data-serie="${item.Serie}" data-container="<?= htmlspecialchars($nContainer) ?>">Inserir Modelo</button>`;
-                                        } else if (item.modelo2 != null) {
+                                        } else if (item.Modelo2 != null) {
                                             cor = `#F0E68C`;
                                             botaoModelo = ``;
                                         } else {

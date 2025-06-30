@@ -94,7 +94,7 @@ try {
                 SELECT
                     e.Serie,
                     e.Container,
-                    ISNULL(e.Modelo, e.Modelo2),
+                    ISNULL(e.Modelo, e.Modelo2) Modelo,
 					e.Modelo2,
                     e.Referencia,
                     e.BipExist,
