@@ -42,7 +42,7 @@ $nContainer = isset($_SESSION['nContainer']) ? $_SESSION['nContainer'] : '';
         <div class="input-header">
             <form method="post" id="FormInputBip">
                 <input type="text" class="form-control mx-auto" style="max-width: 500px;" placeholder="Numero de Série"
-                    id="numero_serie">
+                    id="numero_serie" autofocus>
                 <input type="hidden" id="nContainer" name="nContainer" value="<?= $nContainer ?>">
             </form>
         </div>

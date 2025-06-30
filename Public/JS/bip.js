@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* insere modelos */
     formModelo.addEventListener('submit', function (e) {
-        e.preventDefault();
+        //e.preventDefault();
 
         const modelo = inputModelo.value.trim();
         if (modelo === '') {
@@ -133,7 +133,7 @@ document.getElementById('fecharModal').addEventListener('click', function () {
 
 // Submeter form do modal
 document.getElementById('modalForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // evita reload
+    //e.preventDefault(); // evita reload
     // Aqui você processa o form
     console.log('Form enviado!');
     document.getElementById('modal').style.display = 'none';
