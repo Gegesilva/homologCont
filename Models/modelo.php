@@ -30,7 +30,7 @@ try {
         $stmtUpdate->bindParam(':container', $container);
 
         if ($stmtUpdate->execute()) {
-            echo "Modelo atualizado com sucesso!";
+            echo $sqlUpdate;
         } else {
             echo "Falha ao atualizar.";
         }
